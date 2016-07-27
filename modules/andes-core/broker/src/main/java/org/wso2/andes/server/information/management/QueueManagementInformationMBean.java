@@ -123,7 +123,8 @@ public class QueueManagementInformationMBean extends AMQManagedObject implements
      * Maximum size a message will be displayed on UI
      */
     public static final Integer MESSAGE_DISPLAY_LENGTH_MAX =
-            AndesConfigurationManager.readValue(AndesConfiguration.MANAGEMENT_CONSOLE_MAX_DISPLAY_LENGTH_FOR_MESSAGE_CONTENT);
+            AndesConfigurationManager.readValue(AndesConfiguration
+                    .MANAGEMENT_CONSOLE_MAX_DISPLAY_LENGTH_FOR_MESSAGE_CONTENT);
 
     /**
      * Shown to user has a indication that the particular message has more content than shown in UI
@@ -883,6 +884,16 @@ public class QueueManagementInformationMBean extends AMQManagedObject implements
             for (String headerKey : properties.getHeaders().keys()) {
                 stringBuilder.append(headerKey).append(" = ").append(properties.getHeaders().get(headerKey));
                 stringBuilder.append(", ");
+            }
+            if (null != properties.getCorrelationId()) {
+                stringBuilder.append("JMSCorrelationID").append(" = ").append(properties.getCorrelationId()).append
+                        (", ");
+            }
+            if (null != properties.getReplyTo()) {
+                stringBuilder.append("JMSReplyTo").append(" = ").append(properties.getReplyTo()).append(", ");
+            }
+            if (null != properties.getType()) {
+                stringBuilder.append("JMSType").append(" = ").append(properties.getType()).append(", ");
             }
             String msgProperties = stringBuilder.toString();
             //get content type
